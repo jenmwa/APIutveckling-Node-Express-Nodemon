@@ -26,4 +26,37 @@ app.get('/buss/:from/:to', function(req, res) {
   res.send('Visar bussresor från ' + req.params.from + ' till ' + req.params.to + '.');
 })
 
+//part II
+
+app.get('/form', function(req,res) {
+  let printForm = `
+    <h1>Hej,</h1>
+    <form action="saveUser" method="post">Vad heter du?<br>
+    <input type="text" name="userName">
+    <button>Skicka</button></form>
+  `;
+
+  res.send(printForm);
+});
+
+app.post('/saveUser', function(req, res) {
+  res.send('hej på dig och Välkommen hit ' + req.body.userName + '!')
+})
+
+app.get('/json', function(req, res) {
+  let users = [
+    {userName: 'Jenny', email: 'jenny@mail.se'},
+    {userName: 'Margaretha', email: 'maggan@mail.se'},
+  ];
+  res.json(users);
+});
+
+console.log(__dirname)
+
+app.get('/test', function( req , res) {
+  res.sendFile('public/test.html', {root: __dirname});
+});
+
+
+
 module.exports = app;
