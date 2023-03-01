@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/addBook', function(req, res) {
-    res.send('Thank you for adding ' + req.body.bookTitle + ' by ' + req.body.bookAuthor + ' to our library.<button>BACK TO START</button>')
-})
+    res.send('Thank you for adding ' + req.body.bookTitle + ' by ' + req.body.bookAuthor + ' to our library.<br><br><a href="/"><button id="goToStartPage">BACK TO START</button></a>');
+});
 
 module.exports = router;

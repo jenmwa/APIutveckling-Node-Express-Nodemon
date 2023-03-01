@@ -21,6 +21,18 @@ app.use('/users', usersRouter);
 app.use('/addbooks', addbooksRouter)
 app.use('/books', booksRouter);
 
+
+app.get('/books/:bookId', function (req, res) {
+    let showBook = req.params.bookId;
+    res.send('Hej till Books-routern! Visa info om bok ' + showBook)
+  });
+
+  app.get('/', function(req, res) {
+    res.render('index');
+});
+
+
+
 // app.get('/add', function(req, res) {
 //     let printForm = `<h2>add a book</h2>
 //     <p><em>How rare is it to find a book as beautiful as you</em> ☺️<br><br>
