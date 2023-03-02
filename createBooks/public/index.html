@@ -6,39 +6,15 @@
 </head>
 
 <body>
- <h1>Express</h1>
+ <h1>Express <em>book library</em></h1>
   <p>Welcome to the Book Library monolit style a la Express</p><br><br>
+  <h2>Booklist:</h2>
   <div id="books"></div>
   <br>
   <br>
-  <button>Add Book</button>
+  <a href="/addbooks"><button>Add Book</button></a>
 
-  <script>
-    //flytta detta till egen fil och sätt script i head med defer!
-    fetch('/books')
-      .then(response => response.json())
-      .then(data => {
-        const booksDiv = document.getElementById('books');
-        data.forEach(book => {
-          const bookElement = document.createElement('div');
-          const titleElement = document.createElement('h2');
-          const authorElement = document.createElement('h4');
-          const availableElement = document.createElement('p');
-          const readMoreBtn = document.createElement('button')
-
-          titleElement.innerText = book.title;
-          authorElement.innerText = `by ${book.author}`;
-          availableElement.innerText = ` available: ${book.available}`;
-          readMoreBtn.innerText = 'read more';
-
-          bookElement.appendChild(titleElement);
-          bookElement.appendChild(authorElement);
-          bookElement.appendChild(availableElement);
-          bookElement.appendChild(readMoreBtn);
-
-          booksDiv.appendChild(bookElement);
-        });
-      });
+  <script src="/javascripts/script.js" defer>
   </script>
   
 </body>
