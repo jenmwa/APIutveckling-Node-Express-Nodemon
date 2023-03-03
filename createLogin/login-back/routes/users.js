@@ -15,6 +15,10 @@ router.get('/', function(req, res, next) {
   res.json(users);
 });
 
+router.get('/login', function(req, res, next) {
+  res.json('welcome to the loginpage');
+});
+
 router.post('/', function(req, res, next) {
   let newUser = req.body;
   newUser.userId = users.length + 1;
@@ -23,6 +27,12 @@ router.post('/', function(req, res, next) {
   console.log(newUser)
 
   res.json(users);
+});
+
+/* GET users inlog. */
+router.post('/login', function(req, res, next) {
+
+
 });
 
 module.exports = router;
