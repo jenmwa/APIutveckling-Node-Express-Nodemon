@@ -1,3 +1,28 @@
+
+/******************************************************
+ *********** RENDER INLOG FORM in HTML *************
+ ******************************************************/
+
+ const inlogForm = document.querySelector("#inlogForm");
+ const inlogUser = document.querySelector('#inlogUser');
+ const inlogPassword = document.querySelector('#inlogPassword');
+
+
+ function renderInlogForm() {
+   inlogForm.innerHTML = `
+     <label>username:
+       <input type="text" id="inlogUser">
+     </label>
+     <label>password:
+       <input type="text" id="inlogPassword">
+     </label>
+     <button id="inlogBtn">LOGIN USER</button>
+     `;
+ }
+ renderInlogForm();
+
+ const inlogBtn = document.querySelector('#inlogBtn');
+
 /******************************************************
  *********** RENDER NEW USER FORM in HTML *************
  ******************************************************/
@@ -12,29 +37,10 @@ function renderNewUserForm() {
     <label>password:
       <input type="text" id="newUserPassword">
     </label>
-    <button id="saveUserBtn" disabled>LOGIN</button>
+    <button id="saveUserBtn" disabled>CREATE USER</button>
     `;
 }
 renderNewUserForm();
-
-/******************************************************
- *********** RENDER NEW USER FORM in HTML *************
- ******************************************************/
-
- const inlogForm = document.querySelector("#inlogForm");
-
- function renderinlogForm() {
-   inlogForm.innerHTML = `
-     <label>username:
-       <input type="text" id="inlogUser">
-     </label>
-     <label>password:
-       <input type="text" id="inlogPassword">
-     </label>
-     <button id="inlogBtn">LOGIN</button>
-     `;
- }
- renderinlogForm();
 
 /******************************************************
  * ************** create userList in HTML *************
@@ -45,7 +51,7 @@ const newUserPassword = document.querySelector("#newUserPassword");
 const saveUserBtn = document.querySelector("#saveUserBtn");
 const userListTable = document.querySelector('#userListTable');
 
-fetch("http://localhost:3001/users")
+fetch("http://localhost:3000/users")
   .then((res) => res.json())
   .then((data) => {
     // console.log(data)
@@ -53,7 +59,7 @@ fetch("http://localhost:3001/users")
   });
 
 function renderUserTable(users) {
-  console.log(users);
+  // console.log(users);
 
   let tableHtml = `
     <tr>
@@ -103,7 +109,7 @@ saveUserBtn.addEventListener("click", () => {
   console.log(user);
 
   //skickar till servern
-  fetch("http://localhost:3001/users", {
+  fetch("http://localhost:3000/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -114,7 +120,19 @@ saveUserBtn.addEventListener("click", () => {
     .then((data) => {
       renderUser(data);
     });
-
+    // empty inputfield after submit
+    newUser.value = '';
+    newUserPassword.value = '';
     
 });
+//eventlistener for login
+inlogBtn.addEventListener('click', () => {
+  console.log('clicketi');
+  //send object to server
+  let loginUser = { userName: inlogUser.value, password: inlogPassword.value }
+  console.log(loginUser);
 
+  //skicka till Servern
+  fetch('http://localhost:3000/users/login')
+
+});
