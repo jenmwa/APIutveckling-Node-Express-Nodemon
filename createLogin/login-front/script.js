@@ -1,11 +1,11 @@
 /******************************************************
- * ************** RENDER FORM in HTML ******************
+ *********** RENDER NEW USER FORM in HTML *************
  ******************************************************/
 
-const inlogForm = document.querySelector("#inlogForm");
+const createNewUserForm = document.querySelector("#createNewUserForm");
 
-function renderForm() {
-  inlogForm.innerHTML = `
+function renderNewUserForm() {
+  createNewUserForm.innerHTML = `
     <label>username:
       <input type="text" id="newUser">
     </label>
@@ -15,39 +15,34 @@ function renderForm() {
     <button id="saveUserBtn" disabled>LOGIN</button>
     `;
 }
-renderForm();
+renderNewUserForm();
+
+/******************************************************
+ *********** RENDER NEW USER FORM in HTML *************
+ ******************************************************/
+
+ const inlogForm = document.querySelector("#inlogForm");
+
+ function renderinlogForm() {
+   inlogForm.innerHTML = `
+     <label>username:
+       <input type="text" id="inlogUser">
+     </label>
+     <label>password:
+       <input type="text" id="inlogPassword">
+     </label>
+     <button id="inlogBtn">LOGIN</button>
+     `;
+ }
+ renderinlogForm();
 
 /******************************************************
  * ************** create userList in HTML *************
  ******************************************************/
 
-// const userList = document.querySelector("#userList");
-
-// const newUser = document.querySelector("#newUser");
-// const newUserPassword = document.querySelector("#newUserPassword");
-// const saveUserBtn = document.querySelector("#saveUserBtn");
-
-// fetch("http://localhost:3001/users")
-//   .then((res) => res.json())
-//   .then((data) => {
-//     // console.log(data)
-//     renderUser(data);
-//   });
-
-// function renderUser(users) {
-//   console.log(users);
-
-//   userList.innerHTML = "";
-//   users.map((user) => {
-//     let li = document.createElement("li");
-//     li.id = user.userId;
-//     li.innerText = user.userId + " = " + user.userName + " - " + user.password;
-
-//     userList.appendChild(li);
-//   });
-// }
-
-
+const newUser = document.querySelector("#newUser");
+const newUserPassword = document.querySelector("#newUserPassword");
+const saveUserBtn = document.querySelector("#saveUserBtn");
 const userListTable = document.querySelector('#userListTable');
 
 fetch("http://localhost:3001/users")
@@ -98,7 +93,7 @@ function checkInputValidity() {
 }
 
 /******************************************************
- * ************** EVENTLISTENER ADD user *************
+ * ************** EVENTLISTENER ADD new user *************
  ******************************************************/
 
 saveUserBtn.addEventListener("click", () => {
@@ -119,8 +114,7 @@ saveUserBtn.addEventListener("click", () => {
     .then((data) => {
       renderUser(data);
     });
+
+    
 });
 
-
-// ADD LOGIC:
-//   IF userName || password is empty = SaveBtn Disable
