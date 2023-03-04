@@ -1,29 +1,45 @@
 /******************************************************
+ *********** RENDER WELCOME MSG HTML ******************
+ ******************************************************/
+
+ let welcomeMsg = `
+  <h1>Welcome Stranger</h1>
+ `;
+
+ let welcomeContainer = document.querySelector('#welcomeContainer');
+ welcomeContainer.innerHTML = welcomeMsg;
+
+/******************************************************
  *********** RENDER INLOG FORM in HTML *************
  ******************************************************/
 
 let inlogForm = `
+  <h2 id="inlogSubHeader">log in:</h2>
   <label>username:
-  <input type="text" id="inlogUser">
+    <input type="text" id="inlogUser">
   </label>
   <label>password:
-  <input type="text" id="inlogPassword">
+    <input type="text" id="inlogPassword">
   </label>
   <button id="inlogBtn">LOGIN USER</button>
+  <button id="logoutBtn" disabled>LOGOUT USER</button>
  `;
 
 let inlogContainer = document.querySelector("#inlogContainer");
 inlogContainer.innerHTML = inlogForm;
 
+let inlogSubHeader = document.querySelector('#inlogSubHeader')
 let inlogUser = document.querySelector("#inlogUser");
 let inlogPassword = document.querySelector("#inlogPassword");
-let inlogBtn = document.getElementById("inlogBtn");
+let inlogBtn = document.querySelector("#inlogBtn");
+let logoutBtn = document.querySelector('#logoutBtn')
 
 /******************************************************
  *********** RENDER NEW USER FORM in HTML *************
  ******************************************************/
 
 let createNewUserForm = `
+  <h2>create new user:</h2>
     <label>username:
       <input type="text" id="newUser">
     </label>
@@ -53,15 +69,24 @@ fetch("http://localhost:3000/users")
     renderUserTable(data);
   });
 
+//localStorage, kollar om det finns något inloggad användare
+let loggedInUser = localStorage.getItem('username'); 
+
+if(loggedInUser) {
+  welcomeMsg = `<h1>Welcome ${loggedInUser}</h1>`;
+  welcomeContainer.innerHTML = welcomeMsg;
+  inlogSubHeader.innerHTML = 'You´ve successfully logged in';
+}
+
 function renderUserTable(users) {
   // console.log(users);
 
   let tableHtml = `
-    <tr>
-      <th>Id</th>
-      <th>name</th>
-      <th>password</th>
-    </tr>
+      <tr>
+        <th>Id</th>
+        <th>name</th>
+        <th>password</th>
+      </tr>
   `;
 
   for (let i = 0; i < users.length; i++) {
@@ -140,8 +165,27 @@ inlogBtn.addEventListener("click", () => {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      if (data.userName) {
+        welcomeMsg = `<h1>Welcome ${data.userName}</h1>`;
+        welcomeContainer.innerHTML = welcomeMsg;
+        inlogSubHeader.innerHTML = 'You´ve successfully logged in';
+        logoutBtn.disabled = false;
+        //lägger in i localStorage
+        localStorage.setItem('username', data.userName)
+      }
+      else {
+        inlogSubHeader.innerHTML = 'Sorry, incorrect username or password,<br>try again:';
+      }
     });
   // empty inputfield after submit
   inlogUser.value = "";
   inlogPassword.value = "";
 });
+
+logoutBtn.addEventListener('click', () => {
+  localStorage.removeItem('username');
+  welcomeMsg = `<h1>You have now logged out.</h1>`;
+  welcomeContainer.innerHTML = welcomeMsg;
+  inlogSubHeader.innerHTML = `<h2>log in:</h2>`;
+
+})

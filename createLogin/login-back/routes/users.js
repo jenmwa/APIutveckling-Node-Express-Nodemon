@@ -15,9 +15,7 @@ router.get('/', function(req, res, next) {
   res.json(users);
 });
 
-router.get('/login', function(req, res, next) {
-  res.json('welcome to the loginpage');
-});
+
 
 router.post('/', function(req, res, next) {
   let newUser = req.body;
@@ -31,8 +29,15 @@ router.post('/', function(req, res, next) {
 
 /* GET users inlog. */
 router.post('/login', function(req, res, next) {
+  const { userName, password } = req.body;
+  //hitta en användare
+  const foundUser = users.find(user => user.userName === userName);
 
-
+  if (password === foundUser.password) {
+    res.status(201).json({ userName: foundUser.userName, id: foundUser.id });
+  } else {
+    res.status(401).json('incorrect login');
+  }
 });
 
 module.exports = router;
