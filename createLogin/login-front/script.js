@@ -1,36 +1,29 @@
-
 /******************************************************
  *********** RENDER INLOG FORM in HTML *************
  ******************************************************/
 
- const inlogForm = document.querySelector("#inlogForm");
- const inlogUser = document.querySelector('#inlogUser');
- const inlogPassword = document.querySelector('#inlogPassword');
+let inlogForm = `
+  <label>username:
+  <input type="text" id="inlogUser">
+  </label>
+  <label>password:
+  <input type="text" id="inlogPassword">
+  </label>
+  <button id="inlogBtn">LOGIN USER</button>
+ `;
 
+let inlogContainer = document.querySelector("#inlogContainer");
+inlogContainer.innerHTML = inlogForm;
 
- function renderInlogForm() {
-   inlogForm.innerHTML = `
-     <label>username:
-       <input type="text" id="inlogUser">
-     </label>
-     <label>password:
-       <input type="text" id="inlogPassword">
-     </label>
-     <button id="inlogBtn">LOGIN USER</button>
-     `;
- }
- renderInlogForm();
-
- const inlogBtn = document.querySelector('#inlogBtn');
+let inlogUser = document.querySelector("#inlogUser");
+let inlogPassword = document.querySelector("#inlogPassword");
+let inlogBtn = document.getElementById("inlogBtn");
 
 /******************************************************
  *********** RENDER NEW USER FORM in HTML *************
  ******************************************************/
 
-const createNewUserForm = document.querySelector("#createNewUserForm");
-
-function renderNewUserForm() {
-  createNewUserForm.innerHTML = `
+let createNewUserForm = `
     <label>username:
       <input type="text" id="newUser">
     </label>
@@ -38,18 +31,20 @@ function renderNewUserForm() {
       <input type="text" id="newUserPassword">
     </label>
     <button id="saveUserBtn" disabled>CREATE USER</button>
-    `;
-}
-renderNewUserForm();
+ `;
 
-/******************************************************
- * ************** create userList in HTML *************
- ******************************************************/
+let createNewUserContainer = document.querySelector("#createNewUserContainer");
+createNewUserContainer.innerHTML = createNewUserForm;
 
 const newUser = document.querySelector("#newUser");
 const newUserPassword = document.querySelector("#newUserPassword");
 const saveUserBtn = document.querySelector("#saveUserBtn");
-const userListTable = document.querySelector('#userListTable');
+
+/******************************************************
+ * ************** create userTable in HTML *************
+ ******************************************************/
+
+const userListTable = document.querySelector("#userListTable");
 
 fetch("http://localhost:3000/users")
   .then((res) => res.json())
@@ -103,7 +98,7 @@ function checkInputValidity() {
  ******************************************************/
 
 saveUserBtn.addEventListener("click", () => {
-  console.log('click')
+  console.log("click");
   //skapar ny användare
   let user = { userName: newUser.value, password: newUserPassword.value };
   console.log(user);
@@ -118,21 +113,35 @@ saveUserBtn.addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((data) => {
-      renderUser(data);
+      renderUserTable(data);
     });
-    // empty inputfield after submit
-    newUser.value = '';
-    newUserPassword.value = '';
-    
+  // empty inputfield after submit
+  newUser.value = "";
+  newUserPassword.value = "";
 });
 //eventlistener for login
-inlogBtn.addEventListener('click', () => {
-  console.log('clicketi');
-  //send object to server
-  let loginUser = { userName: inlogUser.value, password: inlogPassword.value }
-  console.log(loginUser);
+inlogBtn.addEventListener("click", () => {
+  console.log("clicketi");
+  //skapar ny användare
+  let inloggedUser = {
+    userName: inlogUser.value,
+    password: inlogPassword.value,
+  };
+  console.log(inloggedUser);
 
-  //skicka till Servern
-  fetch('http://localhost:3000/users/login')
-
+  //skickar till servern
+  fetch("http://localhost:3000/users/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(inloggedUser),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+  // empty inputfield after submit
+  inlogUser.value = "";
+  inlogPassword.value = "";
 });
