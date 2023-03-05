@@ -119,6 +119,15 @@ function checkInputValidity() {
 }
 
 /******************************************************
+ * ********* LocaStorage Login/logOut Btn *************
+ ******************************************************/
+
+const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+inlogBtn.disabled = isLoggedIn;
+logoutBtn.disabled = !isLoggedIn;
+
+/******************************************************
  * ************** EVENTLISTENER ADD new user *************
  ******************************************************/
 
@@ -144,6 +153,7 @@ saveUserBtn.addEventListener("click", () => {
   newUser.value = "";
   newUserPassword.value = "";
 });
+
 //eventlistener for login
 inlogBtn.addEventListener("click", () => {
   console.log("clicketi");
@@ -170,7 +180,10 @@ inlogBtn.addEventListener("click", () => {
         welcomeContainer.innerHTML = welcomeMsg;
         inlogSubHeader.innerHTML = 'You´ve successfully logged in';
         logoutBtn.disabled = false;
+        inlogBtn.disabled = true;
+
         //lägger in i localStorage
+        localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('username', data.userName)
       }
       else {
@@ -184,8 +197,11 @@ inlogBtn.addEventListener("click", () => {
 
 logoutBtn.addEventListener('click', () => {
   localStorage.removeItem('username');
+  localStorage.removeItem('isLoggedIn');
   welcomeMsg = `<h1>You have now logged out.</h1>`;
   welcomeContainer.innerHTML = welcomeMsg;
   inlogSubHeader.innerHTML = `<h2>log in:</h2>`;
+  logoutBtn.disabled = true;
+  inlogBtn.disabled = false;
 
 })
