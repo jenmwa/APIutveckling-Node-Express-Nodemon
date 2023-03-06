@@ -1,5 +1,9 @@
 const bookArray = document.querySelector("#bookArray");
 
+/******************************************************
+ *********** RENDER BOOK STARTPAGE ********************
+ ******************************************************/
+
 let welcomeDiv = `
 <h1>Welcome to the Online Library!</h1>
 <h4>Our Books:</h4>
@@ -30,11 +34,38 @@ function renderBooks(books) {
       Title: ${book.name}<br>
       Author: ${book.author}<br>
       Available: ${availableText}<br>
-      <a href=""">Read More >>></a>
+      <a href="" data-id=${book.id} id="readMoreBtn${i}">Read More >>></a>
       <br><br>
       
       `;
+    
+    // const bookId = document.querySelector("#bookId");
+    let readMoreBtn = document.querySelectorAll('#bookArray a');
+    readMoreBtn.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Click ' + e.currentTarget.dataset.id);
+        const bookId = e.target.dataset.id;
+        fetchBook(bookId);
+      })
+    })
   }
 }
 
 fetchBookArray();
+
+
+/******************************************************
+ *********** RENDER MORE INFO BOOK:ID ******************
+ ******************************************************/
+
+function fetchBook(id) {
+  fetch("http://localhost:3001/books/" + id)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+
+    })
+      // handle error
+    // });
+}

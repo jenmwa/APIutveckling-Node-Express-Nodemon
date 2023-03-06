@@ -17,3 +17,8 @@ På root sidan för bok routern så skall alla böcker som finns på biblioteket
 På informationssidan för en bok så skall bokens namn, författare, antal sidor samt om den är utlånad eller inte visas. Här skall det även finnas en länk för att låna boken.
 
 På sidan “lägg till en ny bok” så skall det finnas ett formulär via vilket du skall kunna lägga till nya böcker till biblioteket.
+
+
+###TODO
+main.js - errormsg IF array not fetched
+
