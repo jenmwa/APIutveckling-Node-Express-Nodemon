@@ -95,4 +95,35 @@ function borrowbtnState(dataId) {
     borrowBookBtn.disabled = true;
     borrowBookBtn.innerHTML = "Not Available";
   }
+  else {
+    borrowBook();
+  }
 }
+
+/******************************************************
+ ****************** BORROW BOOK:ID ********************
+ ******************************************************/
+
+ //Klickevent BorrowBtn
+ //Skicka till server, ändra status true till false
+
+ function borrowBook(dataId) {
+  const borrowBookBtn = document.querySelector('#borrowBookBtn');
+  borrowBookBtn.addEventListener('click', () => {
+    console.log('let send req to server!');
+    console.log(dataId.id)
+    fetch("http://localhost:3001/books/" + dataId, {
+      method: "PUT",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({available: false})
+    })
+    .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        borrowBookBtn.disabled = true;
+        borrowBookBtn.innerHTML = "Not Available";
+      })
+      // handle error if not loaded
+    // });
+  })
+ }
