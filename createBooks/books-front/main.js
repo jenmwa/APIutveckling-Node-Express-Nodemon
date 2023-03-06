@@ -45,8 +45,6 @@ function getAvailableText(book) {
   return book.available ? "Yes" : "No";
 }
 
-fetchBookArray();
-
 function btnsEventListeners() {
   let readMoreBtn = document.querySelectorAll('#bookArray button');
   readMoreBtn.forEach(item => {
@@ -99,7 +97,7 @@ function borrowbtnState(dataId) {
     borrowBookBtn.disabled = true;
     borrowBookBtn.innerHTML = "Not Available";
     returnBookBtn.disabled = false;
-    returnBook();
+    returnBook(dataId);
   }
   else {
     borrowBook(dataId);
@@ -140,14 +138,33 @@ function borrowbtnState(dataId) {
  **************** RETURN BORROWED BOOK *****************
  ******************************************************/
 
+ //returnBtn clickevent
 // clickevent fetch server
 // PUT available : true
 // server svar
 // updatera DOM
 
-function returnBook() {
+function returnBook(dataId) {
   const returnBookBtn = document.querySelector('#returnBookBtn');
   returnBookBtn.addEventListener('click', () => {
     console.log('click returnBtn');
+    const id = dataId.id;
+    console.log(id)
+    fetch(`http://localhost:3001/books/${id}`, {
+      method: "PUT",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({available: true})
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      borrowbtnState(dataId); 
+      location.reload();
+    })
+
+    //printa ut sidan på nytt!
+    // handle error if not loaded
+  // });
   });
 }
+fetchBookArray();
