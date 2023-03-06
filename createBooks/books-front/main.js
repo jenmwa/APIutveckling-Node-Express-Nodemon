@@ -1,5 +1,6 @@
 const bookArray = document.querySelector("#bookArray");
-const readMoreAboutBook = document.querySelector('#readMoreAboutBook')
+const readMoreAboutBook = document.querySelector('#readMoreAboutBook');
+
 
 /******************************************************
  *********** RENDER BOOK STARTPAGE ********************
@@ -35,9 +36,7 @@ function renderBooks(books) {
       Available: ${getAvailableText(book)}<br>
       <button data-id=${book.id} id="readMoreBtn${i}">Read More >>></button>
       <br><br>
-      
       `;
-    
     btnsEventListeners();
   }
 }
@@ -53,7 +52,7 @@ function btnsEventListeners() {
   readMoreBtn.forEach(item => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log('Click ' + e.currentTarget.dataset.id);
+      console.log('click ' + e.currentTarget.dataset.id);
       const bookId = e.target.dataset.id;
       fetchBook(bookId);
     });
@@ -69,6 +68,7 @@ function fetchBook(id) {
     .then((res) => res.json())
     .then((dataId) => {
       console.log(dataId);
+      dataId.id = id; 
       renderReadMore(dataId);
     })
       // handle error if not loaded
@@ -80,23 +80,29 @@ function renderReadMore(dataId) {
 
   readMoreAboutBook.innerHTML = `
     <h4>MORE INFO ABOUT <em>${dataId.name}</em></h4><br>
+    id: ${dataId.id}<br>
     title: ${dataId.name}<br>
     author: ${dataId.author}<br>
     pages: ${dataId.pages}<br>
     available: ${getAvailableText(dataId)}<br>
     <button id="borrowBookBtn">Borrow this book >>></button>
+    <button id="returnBookBtn" disabled>Return this book >>></button>
   `
   borrowbtnState(dataId);
 }
 
 function borrowbtnState(dataId) {
+  const borrowBookBtn = document.querySelector('#borrowBookBtn');
+  const returnBookBtn = document.querySelector('#returnBookBtn');
+
   if (getAvailableText(dataId) === "No") {
-    const borrowBookBtn = document.querySelector('#borrowBookBtn');
     borrowBookBtn.disabled = true;
     borrowBookBtn.innerHTML = "Not Available";
+    returnBookBtn.disabled = false;
+    returnBook();
   }
   else {
-    borrowBook();
+    borrowBook(dataId);
   }
 }
 
@@ -106,13 +112,14 @@ function borrowbtnState(dataId) {
 
  //Klickevent BorrowBtn
  //Skicka till server, ändra status true till false
+ //uppdatera DOM
 
  function borrowBook(dataId) {
   const borrowBookBtn = document.querySelector('#borrowBookBtn');
   borrowBookBtn.addEventListener('click', () => {
-    console.log('let send req to server!');
-    console.log(dataId.id)
-    fetch("http://localhost:3001/books/" + dataId, {
+    console.log('let send to server!');
+    console.log(dataId)
+    fetch(`http://localhost:3001/books/${dataId.id}`, {
       method: "PUT",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({available: false})
@@ -120,10 +127,27 @@ function borrowbtnState(dataId) {
     .then(res => res.json())
       .then(data => {
         console.log(data);
-        borrowBookBtn.disabled = true;
-        borrowBookBtn.innerHTML = "Not Available";
+        borrowbtnState(dataId); 
+        location.reload();
       })
+      //printa ut sidan på nytt!
       // handle error if not loaded
     // });
   })
  }
+
+ /******************************************************
+ **************** RETURN BORROWED BOOK *****************
+ ******************************************************/
+
+// clickevent fetch server
+// PUT available : true
+// server svar
+// updatera DOM
+
+function returnBook() {
+  const returnBookBtn = document.querySelector('#returnBookBtn');
+  returnBookBtn.addEventListener('click', () => {
+    console.log('click returnBtn');
+  });
+}
