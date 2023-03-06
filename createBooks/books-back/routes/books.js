@@ -34,7 +34,7 @@ var router = express.Router();
     {
       id: 5,
       name: "Alice´s Adventures in Wonderland",
-      author: " Lewis Carroll",
+      author: "Lewis Carroll",
       pages: 78,
       available: true,
     },
@@ -71,7 +71,7 @@ var router = express.Router();
       name: "Twenty Thousand Leagues Under the Sea",
       author: "Jules Verne",
       pages: 259,
-      available: false,
+      available: true,
     },
   ];
 
@@ -86,7 +86,26 @@ router.get("/:id", function (req, res) {
   if (bookId) {
     res.json({
       name: bookId.name,
-      title: bookId.author,
+      author: bookId.author,
+      pages: bookId.pages,
+      available: bookId.available
+    });
+  } else {
+    res.status(401).json("Book not found");
+  }
+});
+
+router.put("/:id", function (req, res) {
+  let id = Number(req.params.id);
+  let bookId = books.find((book) => book.id === id);
+
+  if (bookId) {
+    // set the availability to false
+    bookId.available = false; 
+    res.json({
+      // message: "Book availability updated",
+      name: bookId.name,
+      author: bookId.author,
       pages: bookId.pages,
       available: bookId.available
     });
