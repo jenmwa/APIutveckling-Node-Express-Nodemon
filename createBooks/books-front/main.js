@@ -1,4 +1,5 @@
 const bookArray = document.querySelector("#bookArray");
+const readMoreAboutBook = document.querySelector('#readMoreAboutBook')
 
 /******************************************************
  *********** RENDER BOOK STARTPAGE ********************
@@ -33,27 +34,33 @@ function renderBooks(books) {
     bookArray.innerHTML += `
       Title: ${book.name}<br>
       Author: ${book.author}<br>
-      Available: ${availableText}<br>
-      <a href="" data-id=${book.id} id="readMoreBtn${i}">Read More >>></a>
+      Available: ${getAvailableText(book)}<br>
+      <button data-id=${book.id} id="readMoreBtn${i}">Read More >>></button>
       <br><br>
       
       `;
     
-    // const bookId = document.querySelector("#bookId");
-    let readMoreBtn = document.querySelectorAll('#bookArray a');
-    readMoreBtn.forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log('Click ' + e.currentTarget.dataset.id);
-        const bookId = e.target.dataset.id;
-        fetchBook(bookId);
-      })
-    })
+    btnsEventListeners();
   }
+}
+
+function getAvailableText(book) {
+  return book.available ? "Yes" : "No";
 }
 
 fetchBookArray();
 
+function btnsEventListeners() {
+  let readMoreBtn = document.querySelectorAll('#bookArray button');
+  readMoreBtn.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Click ' + e.currentTarget.dataset.id);
+      const bookId = e.target.dataset.id;
+      fetchBook(bookId);
+    });
+  });
+}
 
 /******************************************************
  *********** RENDER MORE INFO BOOK:ID ******************
@@ -62,10 +69,20 @@ fetchBookArray();
 function fetchBook(id) {
   fetch("http://localhost:3001/books/" + id)
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-
+    .then((dataId) => {
+      console.log(dataId);
+      renderReadMore(dataId);
     })
       // handle error
     // });
+}
+
+function renderReadMore(dataId) {
+  console.log('MER INFO')
+
+  readMoreAboutBook.innerHTML = `<h4>MORE INFO ABOUT ${dataId.name}</h4><br>
+  title: ${dataId.name}<br>
+  author: ${dataId.author}<br>
+  pages: ${dataId.pages}<br>
+  available: ${getAvailableText(dataId)}<br> `
 }
