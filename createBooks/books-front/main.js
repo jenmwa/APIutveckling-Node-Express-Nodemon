@@ -20,7 +20,8 @@ function fetchBookArray() {
       console.log(data);
       renderBooks(data);
     });
-    //insert errorMsg if list not loaded
+     // handle error if not loaded
+    // });
 }
 
 function renderBooks(books) {
@@ -29,11 +30,8 @@ function renderBooks(books) {
   for (let i = 0; i < books.length; i++) {
     const book = books[i];
 
-    const availableText = book.available ? "Yes" : "No";
-
     bookArray.innerHTML += `
       Title: ${book.name}<br>
-      Author: ${book.author}<br>
       Available: ${getAvailableText(book)}<br>
       <button data-id=${book.id} id="readMoreBtn${i}">Read More >>></button>
       <br><br>
@@ -73,16 +71,28 @@ function fetchBook(id) {
       console.log(dataId);
       renderReadMore(dataId);
     })
-      // handle error
+      // handle error if not loaded
     // });
 }
 
 function renderReadMore(dataId) {
   console.log('MER INFO')
 
-  readMoreAboutBook.innerHTML = `<h4>MORE INFO ABOUT ${dataId.name}</h4><br>
-  title: ${dataId.name}<br>
-  author: ${dataId.author}<br>
-  pages: ${dataId.pages}<br>
-  available: ${getAvailableText(dataId)}<br> `
+  readMoreAboutBook.innerHTML = `
+    <h4>MORE INFO ABOUT <em>${dataId.name}</em></h4><br>
+    title: ${dataId.name}<br>
+    author: ${dataId.author}<br>
+    pages: ${dataId.pages}<br>
+    available: ${getAvailableText(dataId)}<br>
+    <button id="borrowBookBtn">Borrow this book >>></button>
+  `
+  borrowbtnState(dataId);
+}
+
+function borrowbtnState(dataId) {
+  if (getAvailableText(dataId) === "No") {
+    const borrowBookBtn = document.querySelector('#borrowBookBtn');
+    borrowBookBtn.disabled = true;
+    borrowBookBtn.innerHTML = "Not Available";
+  }
 }
