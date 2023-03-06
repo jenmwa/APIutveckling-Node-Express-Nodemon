@@ -100,13 +100,9 @@ router.put("/:id", function (req, res) {
   let bookId = books.find((book) => book.id === id);
 
   if (bookId) {
-    // set the availability to false
+    // toggle availability 
     bookId.available = !bookId.available; 
     res.json({
-      // message: "Book availability updated",
-      // name: bookId.name,
-      // author: bookId.author,
-      // pages: bookId.pages,
       available: bookId.available
     });
   } else {
