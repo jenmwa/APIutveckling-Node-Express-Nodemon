@@ -167,4 +167,53 @@ function returnBook(dataId) {
   // });
   });
 }
+
+ /******************************************************
+ ********************* ADD NEW BOOK ********************
+ ******************************************************/
+
+// htmlstruktur i js till html
+// klickevent knapp
+// öppna/visa form i DOM
+// validering input
+//klickevent submit
+// push array server
+// render HTML 
+
+let addNewBookHtml = `
+<button id="addNewBookBtn">ADD NEW BOOK</button>
+<div id="addNewBookForm"></div>
+`;
+
+const addNewBookDiv = document.querySelector('#addNewBookDiv');
+addNewBookDiv.innerHTML = addNewBookHtml;
+
+const addNewBookBtn = document.querySelector('#addNewBookBtn');
+addNewBookBtn.addEventListener('click', () => {
+  console.log('add new book CLICK')
+  addNewBookBtn.disabled = true;
+
+  const addNewBookForm = document.querySelector('#addNewBookForm');
+  addNewBookForm.innerHTML = `
+  <h2>add a book</h2>
+     <p><em>How rare is it to find a book as beautiful as you</em> ☺️<br><br>
+     Want to add a book to our library?<br>
+     Please fill out the information below and add your book to the collection</p>
+        <form>add a book:<br>
+          <label> Title:
+            <input type="text" name="bookTitle" >
+          </label>
+          <label> Author:
+            <input type="text" name="bookAuthor" >
+          </label>
+          <label> pages:
+            <input type="number" >
+          </label>
+          <button id="addToLibraryBtn">ADD BOOK TO LIBRARY</button>
+        </form>
+    `;
+});
+
+
+
 fetchBookArray();
