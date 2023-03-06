@@ -101,12 +101,12 @@ router.put("/:id", function (req, res) {
 
   if (bookId) {
     // set the availability to false
-    bookId.available = false; 
+    bookId.available = !bookId.available; 
     res.json({
       // message: "Book availability updated",
-      name: bookId.name,
-      author: bookId.author,
-      pages: bookId.pages,
+      // name: bookId.name,
+      // author: bookId.author,
+      // pages: bookId.pages,
       available: bookId.available
     });
   } else {
