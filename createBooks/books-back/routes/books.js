@@ -102,12 +102,25 @@ router.put("/:id", function (req, res) {
   if (bookId) {
     // toggle availability 
     bookId.available = !bookId.available; 
-    res.json({
-      available: bookId.available
-    });
+    res.json(
+      { available: bookId.available}
+    );
   } else {
     res.status(401).json("Book not found");
   }
 });
+
+
+// ADD NEW BOOK
+router.post('/', function(req,res, next) {
+
+  let addNewBook = req.body;
+  addNewBook.id = books.length +1;
+
+  books.push(addNewBook);
+
+  console.log(addNewBook);
+  res.json(books)
+})
 
 module.exports = router;
