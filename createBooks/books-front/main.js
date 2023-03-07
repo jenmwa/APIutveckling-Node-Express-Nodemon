@@ -28,6 +28,8 @@ function fetchBookArray() {
 function renderBooks(books) {
   console.log(books);
 
+  bookArray.innerHTML = '';
+
   for (let i = 0; i < books.length; i++) {
     const book = books[i];
 
@@ -125,8 +127,10 @@ function borrowbtnState(dataId) {
     .then(res => res.json())
       .then(data => {
         console.log(data);
+        // renderBooks(data)
         borrowbtnState(dataId); 
-        location.reload();
+
+        // location.reload();
       })
       //printa ut sidan på nytt!
       // handle error if not loaded
@@ -158,8 +162,9 @@ function returnBook(dataId) {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      borrowbtnState(dataId); 
-      location.reload();
+      borrowbtnState(dataId);
+      // renderBooks(data); 
+      // location.reload();
     })
 
     //printa ut sidan på nytt!
@@ -172,12 +177,14 @@ function returnBook(dataId) {
  ********************* ADD NEW BOOK ********************
  ******************************************************/
 
-// htmlstruktur i js till html
-// klickevent knapp
-// öppna/visa form i DOM
-// validering input
-//klickevent submit
-// push array server
+// htmlstruktur i js till html ✅
+// klickevent knapp ✅
+// öppna/visa form i DOM ✅
+// skicka alla uppgifter som objekt
+//lägg på id
+// validering input 
+//klickevent submit ✅
+// push array server (fetch, skapa endpoint/ post, )
 // render HTML 
 
 let addNewBookHtml = `
@@ -193,6 +200,11 @@ addNewBookBtn.addEventListener('click', () => {
   console.log('add new book CLICK')
   addNewBookBtn.disabled = true;
 
+  renderNewBookForm();
+});
+
+
+function renderNewBookForm() {
   const addNewBookForm = document.querySelector('#addNewBookForm');
   addNewBookForm.innerHTML = `
   <h2>add a book</h2>
@@ -201,19 +213,42 @@ addNewBookBtn.addEventListener('click', () => {
      Please fill out the information below and add your book to the collection</p>
         <form>add a book:<br>
           <label> Title:
-            <input type="text" name="bookTitle" >
+            <input type="text" name="bookTitle" id="newBookName" >
           </label>
           <label> Author:
-            <input type="text" name="bookAuthor" >
+            <input type="text" name="bookAuthor" id="newBookAuthor">
           </label>
           <label> pages:
-            <input type="number" >
+            <input type="number" id="newBookPages">
           </label>
           <button id="addToLibraryBtn">ADD BOOK TO LIBRARY</button>
         </form>
     `;
-});
 
+  let newBookName = document.querySelector('#newBookName');
+  let newBookAuthor = document.querySelector('#newBookAuthor');
+  let newBookPages = document.querySelector('#newBookPages')
+  let addToLibraryBtn = document.querySelector('#addToLibraryBtn');
+
+  addToLibraryBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log('clickkk');
+    let addNewBook = {name: newBookName.value, author: newBookAuthor.value, pages: newBookPages.value, available: true}
+    console.log(addNewBook)
+
+    fetch('http://localhost:3001/books/',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(addNewBook)
+      })
+      .then(res => res.json())
+      .then(data => 
+        renderBooks(data)
+      );
+  });
+};
 
 
 fetchBookArray();
