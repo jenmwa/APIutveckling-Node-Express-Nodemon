@@ -1,7 +1,6 @@
 const bookArray = document.querySelector("#bookArray");
 const readMoreAboutBook = document.querySelector('#readMoreAboutBook');
 
-
 /******************************************************
  *********** RENDER BOOK STARTPAGE ********************
  ******************************************************/
@@ -237,6 +236,5 @@ function renderNewBookForm() {
       );
   });
 };
-
 
 fetchBookArray();
