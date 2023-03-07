@@ -68,7 +68,7 @@ function fetchBook(id) {
     .then((res) => res.json())
     .then((dataId) => {
       console.log(dataId);
-      dataId.id = id; 
+
       renderReadMore(dataId);
     })
       // handle error if not loaded
@@ -85,23 +85,15 @@ function renderReadMore(dataId) {
     author: ${dataId.author}<br>
     pages: ${dataId.pages}<br>
     available: ${getAvailableText(dataId)}<br>
-    <button id="borrowBookBtn">Borrow this book >>></button>
-    <button id="returnBookBtn" disabled>Return this book >>></button>
+    <button id="borrowReturnBtn">Borrow this book >>></button>
+
   `
-  borrowbtnState(dataId);
-}
-
-function borrowbtnState(dataId) {
-  const borrowBookBtn = document.querySelector('#borrowBookBtn');
-  const returnBookBtn = document.querySelector('#returnBookBtn');
-
+  const borrowReturnBtn = document.querySelector('#borrowReturnBtn');
   if (getAvailableText(dataId) === "No") {
-    borrowBookBtn.disabled = true;
-    borrowBookBtn.innerHTML = "Not Available";
-    returnBookBtn.disabled = false;
+    borrowReturnBtn.innerText = "Return this book >>>";
     returnBook(dataId);
-  }
-  else {
+  } else {
+    borrowReturnBtn.innerText = "Borrow this book >>>";
     borrowBook(dataId);
   }
 }
@@ -115,11 +107,12 @@ function borrowbtnState(dataId) {
  //uppdatera DOM
 
  function borrowBook(dataId) {
-  const borrowBookBtn = document.querySelector('#borrowBookBtn');
-  borrowBookBtn.addEventListener('click', () => {
+  const borrowReturnBtn = document.querySelector('#borrowReturnBtn');
+  borrowReturnBtn.addEventListener('click', () => {
     console.log('let send to server!');
+    const id = dataId.id;
     console.log(dataId)
-    fetch(`http://localhost:3001/books/${dataId.id}`, {
+    fetch(`http://localhost:3001/books/${id}`, {
       method: "PUT",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({available: false})
@@ -127,9 +120,13 @@ function borrowbtnState(dataId) {
     .then(res => res.json())
       .then(data => {
         console.log(data);
-        // renderBooks(data)
-        borrowbtnState(dataId); 
-
+        renderReadMore(data);
+        if (getAvailableText(data) === "No") {
+          borrowReturnBtn.innerText = "Return this book >>>";
+        } else {
+          borrowReturnBtn.innerText = "Borrow this book >>>";
+        }
+        fetchBookArray();
         // location.reload();
       })
       //printa ut sidan på nytt!
@@ -142,15 +139,9 @@ function borrowbtnState(dataId) {
  **************** RETURN BORROWED BOOK *****************
  ******************************************************/
 
- //returnBtn clickevent
-// clickevent fetch server
-// PUT available : true
-// server svar
-// updatera DOM
-
 function returnBook(dataId) {
-  const returnBookBtn = document.querySelector('#returnBookBtn');
-  returnBookBtn.addEventListener('click', () => {
+  const borrowReturnBtn = document.querySelector('#borrowReturnBtn');
+  borrowReturnBtn.addEventListener('click', () => {
     console.log('click returnBtn');
     const id = dataId.id;
     console.log(id)
@@ -162,9 +153,16 @@ function returnBook(dataId) {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      borrowbtnState(dataId);
+      renderReadMore(data);
+      if (getAvailableText(data) === "No") {
+        borrowReturnBtn.innerText = "Return this book >>>";
+      } else {
+        borrowReturnBtn.innerText = "Borrow this book >>>";
+      }
       // renderBooks(data); 
       // location.reload();
+      fetchBookArray(); // fetch the updated book data
+
     })
 
     //printa ut sidan på nytt!
@@ -176,16 +174,6 @@ function returnBook(dataId) {
  /******************************************************
  ********************* ADD NEW BOOK ********************
  ******************************************************/
-
-// htmlstruktur i js till html ✅
-// klickevent knapp ✅
-// öppna/visa form i DOM ✅
-// skicka alla uppgifter som objekt
-//lägg på id
-// validering input 
-//klickevent submit ✅
-// push array server (fetch, skapa endpoint/ post, )
-// render HTML 
 
 let addNewBookHtml = `
 <button id="addNewBookBtn">ADD NEW BOOK</button>

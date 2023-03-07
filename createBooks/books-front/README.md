@@ -22,3 +22,21 @@ På sidan “lägg till en ny bok” så skall det finnas ett formulär via vilk
 ###TODO
 main.js - errormsg IF array not fetched
 
+
+### RETURN BORROWED BOOK 
+// returnBtn clickevent
+// clickevent fetch server
+// PUT available : true
+// server svar
+// updatera DOM
+
+### ADD NEW BOOK 
+// htmlstruktur i js till html ✅
+// klickevent knapp ✅
+// öppna/visa form i DOM ✅
+// skicka alla uppgifter som objekt ✅
+//lägg på id ✅
+// validering input 
+//klickevent submit ✅
+// push array server (fetch, skapa endpoint/ post, ) ✅
+// render HTML ✅
