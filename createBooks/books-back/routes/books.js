@@ -85,6 +85,7 @@ router.get("/:id", function (req, res) {
 
   if (bookId) {
     res.json({
+      id: bookId.id,
       name: bookId.name,
       author: bookId.author,
       pages: bookId.pages,
@@ -103,7 +104,12 @@ router.put("/:id", function (req, res) {
     // toggle availability 
     bookId.available = !bookId.available; 
     res.json(
-      { available: bookId.available}
+      { 
+        id: bookId.id,
+        name: bookId.name,
+        author: bookId.author,
+        pages: bookId.pages,
+        available: bookId.available}
     );
   } else {
     res.status(401).json("Book not found");
