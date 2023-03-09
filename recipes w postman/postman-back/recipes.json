@@ -1,0 +1,8 @@
+[
+  {
+    "recipeName": "Pasta with ketchup",
+    "description": "En snabb och härlig lunch!",
+    "ingredients": [ "Pasta", "Ketchup"],
+    "prepTime": 30
+  }
+]
