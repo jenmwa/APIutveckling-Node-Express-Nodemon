@@ -103,7 +103,7 @@ submitEmailBtn.addEventListener('click', () => {
   console.log(newInput);
 
   //skickar till servern
-  fetch('http://localhost:3000/email/add', {
+  fetch('http://localhost:3000/email/txt', {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
