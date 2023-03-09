@@ -19,15 +19,28 @@ router.get('/', function(request, respons, next) {
   })
 });
 
-router.post('/new', function(request, respons, next){
+router.post('/add', function(request, respons, next){
 
+  fs.readFile('emaillist.json', function(error, data) {
+    if(error) {
+      console.log(error)
+    }
+
+    const emaillist = JSON.parse(data);
+
+    const newInput = {
+      name: request.body.name,
+      email: request.body.email,
+    };
+    emaillist.push(newInput);
+
+    respons.send(emaillist)
+    return;
+  })
+  
 });
 
 
-
-router.get('/add', function(req, respons, next) {
-    respons.send('Welcome to the email/add');
-})
 
 /*****************************************************
  *****************************************************
