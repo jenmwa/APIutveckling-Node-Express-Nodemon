@@ -2,7 +2,55 @@
   {
     "recipeName": "Pasta with ketchup",
     "description": "En snabb och härlig lunch!",
-    "ingredients": [ "Pasta", "Ketchup"],
+    "ingredients": [
+      "Pasta",
+      "Ketchup"
+    ],
     "prepTime": 30
+  },
+  {
+    "recipeName": "Libabröd med hummus",
+    "description": "Snabbt,enkelt,gott",
+    "ingredients": [
+      "Libabröd",
+      "Hummus"
+    ],
+    "prepTime": 10
+  },
+  {
+    "recipeName": "Libabröd med hummus",
+    "description": "Snabbt,enkelt,gott",
+    "ingredients": [
+      "Libabröd",
+      "Hummus"
+    ],
+    "prepTime": 10
+  },
+  {
+    "recipeName": "Libabröd utan hummus",
+    "description": "Snabbt,enkelt,gott",
+    "ingredients": [
+      "Libabröd"
+    ],
+    "prepTime": 10
+  },
+  {
+    "recipeName": "smörgås med ost",
+    "description": "klassiker",
+    "ingredients": [
+      "smör",
+      "ost",
+      "smörgås"
+    ],
+    "prepTime": 20
+  },
+  {
+    "recipeName": "smörgås utan ost",
+    "description": "klassiker",
+    "ingredients": [
+      "smör",
+      "smörgås"
+    ],
+    "prepTime": 20
   }
 ]
