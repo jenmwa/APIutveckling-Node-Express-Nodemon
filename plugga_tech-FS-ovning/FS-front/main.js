@@ -99,8 +99,8 @@ submitEmailBtn.addEventListener('click', () => {
   console.log('click');
 
   //skapa ett nytt objekt
-  let newUser = { name: nameInput.value, email: emailInput.value };
-  console.log(newUser);
+  let newInput = { name: nameInput.value, email: emailInput.value };
+  console.log(newInput);
 
   //skickar till servern
   fetch('http://localhost:3000/email/add', {
@@ -108,7 +108,7 @@ submitEmailBtn.addEventListener('click', () => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(newUser),
+    body: JSON.stringify(newInput),
   })
     .then((respons) => respons.json())
     .then((data) => {
