@@ -7,6 +7,7 @@ var cors = require('cors')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const formRouter = require('./routes/form');
+const emailRouter = require('./routes/email')
 
 var app = express();
 
@@ -20,5 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/form', formRouter);
+app.use('/email', emailRouter)
 
 module.exports = app;

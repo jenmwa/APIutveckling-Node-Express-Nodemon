@@ -40,3 +40,8 @@ i app.js
 ```bash
     app.use(cors())
 ```
+
+i routern där FS ska användas
+```bash
+    const fs = require('fs');
+```
