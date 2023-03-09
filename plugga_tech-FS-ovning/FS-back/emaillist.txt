@@ -10,5 +10,9 @@
   {
     "username": "jenny",
     "email": "jenny@mail.se"
+  },
+  {
+    "name": "jen",
+    "email": "wal"
   }
 ]
