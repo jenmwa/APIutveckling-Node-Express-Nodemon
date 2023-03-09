@@ -24,15 +24,41 @@ router.post('/add', function(request, respons, next){
   fs.readFile('emaillist.json', function(error, data) {
     if(error) {
       console.log(error)
+
+      if(error.code === 'ENOENT') {
+        console.log('the file doesn´t exist');
+
+        let emaillist = [{
+          name: request.body.name,
+          email: request.body.email
+        }];
+
+        fs.writeFile('emaillist.json', JSON.stringify(emaillist, null, 2), function(err) {
+          if (err) {
+            console.log(err)
+          }
+        })
+
+        respons.send('file created and new userinput is added');
+        return;
+      }
+
+      respons.send('Something went wrong')
     }
+      const emaillist = JSON.parse(data);
 
-    const emaillist = JSON.parse(data);
-
-    const newInput = {
-      name: request.body.name,
-      email: request.body.email,
+      let newInput = {
+        'name': request.body.name,
+        'email': request.body.email
     };
+    
     emaillist.push(newInput);
+
+    fs.writeFile('emaillist.json', JSON.stringify(emaillist, null , 2), function(error) {
+      if (error) {
+        console.log(error);
+      }
+    })
 
     respons.send(emaillist)
     return;
@@ -41,6 +67,19 @@ router.post('/add', function(request, respons, next){
 });
 
 
+router.get('/add', function(request, respons, next) {
+  fs.readFile('emaillist.json', function(error, data){
+    if (error === true) {
+        console.log(error)
+    }
+
+    const emaillist = JSON.parse(data);
+
+    respons.send(emaillist);
+    return;
+
+  });
+});
 
 /*****************************************************
  *****************************************************
