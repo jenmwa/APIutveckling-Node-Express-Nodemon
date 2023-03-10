@@ -14,5 +14,9 @@
   {
     "name": "jen",
     "email": "wal"
+  },
+  {
+    "name": "persona1",
+    "email": "persona1@mail.se"
   }
 ]
