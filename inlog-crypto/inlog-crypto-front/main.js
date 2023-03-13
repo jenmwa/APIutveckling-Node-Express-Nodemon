@@ -54,10 +54,11 @@ userPasswordInput.addEventListener('input', checkInput);
 function handleLogin() {
   console.log("CLICK");
 
-  let newUser = {
-    userName: userNameInput.value,
-    userPassword: userPasswordInput.value
-  };
+if(userInlogBtn.classList.contains('logged-out')){
+    let newUser = {
+      userName: userNameInput.value,
+      userPassword: userPasswordInput.value
+    };
   console.log(newUser);
 
   fetch('http://localhost:3000/users/add', {
@@ -75,6 +76,9 @@ function handleLogin() {
 
     userNameInput.value = '';
     userPasswordInput.value = '';
+  } else {
+    toggleLoggedStatus(null);
+  }
   };
 
 function toggleLoggedStatus(newUser) {
