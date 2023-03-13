@@ -1,9 +1,16 @@
 console.log("Hey hey it´s connected!");
 
-const inputFormDiv = document.querySelector("#inlogFormDiv");
+const inputFormDiv = document.querySelector("#userFormDiv");
+
+const signupBtn = document.querySelector('#signup');
+const loginBtn = document.querySelector('#login');
 
 const welcomeHeading = document.createElement("h1");
 const textMessage = document.createElement("p");
+const userNameLabel = document.createElement("label");
+const userPasswordLabel = document.createElement("label");
+userNameLabel.textContent = "username:";
+userPasswordLabel.textContent = "password: ";
 const userContainer = document.createElement('div');
 const userNameInput = document.createElement("input");
 const userPasswordInput = document.createElement("input");
@@ -12,26 +19,37 @@ userInlogBtn.setAttribute("id", "userLoginBtn");
 userInlogBtn.setAttribute('class', 'logged-out');
 userInlogBtn.disabled = true;
 
-renderSignInHtml();
+const textDisclaimer = document.createElement('p');
 
-function renderSignInHtml() {
-  const userNameLabel = document.createElement("label");
-  const userPasswordLabel = document.createElement("label");
+userContainer.appendChild(userNameLabel);
+userNameLabel.appendChild(userNameInput);
+userContainer.appendChild(userPasswordLabel);
+userPasswordLabel.appendChild(userPasswordInput);
 
+inputFormDiv.appendChild(welcomeHeading);
+inputFormDiv.appendChild(textMessage);
+inputFormDiv.appendChild(userContainer);
+inputFormDiv.appendChild(userInlogBtn);
+inputFormDiv.appendChild(textDisclaimer);
+
+let isSignIn = true;
+
+renderSignUpHtml();
+
+function renderSignUpHtml() {
   welcomeHeading.textContent = "Welcome To The Sign Up page";
   textMessage.textContent = "Enter a username and a password to register.";
-  userNameLabel.textContent = "username:";
-  userPasswordLabel.textContent = "password: ";
   userInlogBtn.textContent = "SIGN UP";
+  textDisclaimer.textContent = 'Already have an account? LOG IN >> ';
 
-  inputFormDiv.appendChild(welcomeHeading);
-  inputFormDiv.appendChild(textMessage);
-  inputFormDiv.appendChild(userContainer);
-  userContainer.appendChild(userNameLabel);
-  userNameLabel.appendChild(userNameInput);
-  userContainer.appendChild(userPasswordLabel);
-  userPasswordLabel.appendChild(userPasswordInput);
-  inputFormDiv.appendChild(userInlogBtn);
+  checkInput();
+}
+
+function renderLogInHtml() {
+  welcomeHeading.textContent = "This is The Login page";
+  textMessage.textContent = "Enter your username and a password to sign in.";
+  userInlogBtn.textContent = "LOG IN";
+  textDisclaimer.textContent = 'Want to create an account? SIGN UP >> ';
 
   checkInput();
 }
@@ -50,6 +68,22 @@ function checkInput(){
 
 userNameInput.addEventListener('input', checkInput);
 userPasswordInput.addEventListener('input', checkInput);
+
+signupBtn.addEventListener('click', () => {
+  console.log('signup');
+  if (!isSignIn) {
+    isSignIn = true;
+  renderSignUpHtml();
+  }
+})
+
+loginBtn.addEventListener('click', () => {
+  console.log('login');
+  if (isSignIn) {
+    isSignIn = false;
+  renderLogInHtml();
+  }
+})
 
 function handleLogin() {
   console.log("CLICK");
