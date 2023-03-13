@@ -4,6 +4,8 @@ var router = express.Router();
 const fs = require('fs');
 const crypto = require("crypto-js");
 
+const salt = 'see you back in the real world';
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -15,9 +17,8 @@ router.get('/', function(req, res, next) {
 
     const userList = JSON.parse(data); 
     res.send(userList);
-
+    return;
   })
-
 });
 
 /* READ user list jsonFile. */
@@ -31,17 +32,24 @@ router.get('/add', function(request, response, next) {
   })
 });
 
+//add new user
 router.post('/add', function(request, response, next) {
+  let newUser = {
+    'userName': request.body.userName,
+    // 'userPassword': request.body.userPassword,
+  };
+
   fs.readFile('users.json', function(error, data) {
     if(error) {
       console.log(error)
     }
 
     const userList = JSON.parse(data);
-    let newUser = {
-      'userName': request.body.userName,
-      'userPassword': request.body.userPassword,
-    };
+    newUser.id = userList.length + 1;
+
+    let userPasswordCrypto = crypto.AES.encrypt(request.body.userPassword, salt).toString();
+    newUser.userPassword = userPasswordCrypto;
+
 
     userList.push(newUser);
 
