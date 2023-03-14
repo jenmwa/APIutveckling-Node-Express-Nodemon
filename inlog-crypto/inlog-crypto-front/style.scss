@@ -3,19 +3,13 @@ body {
     font-family: 'Krub', sans-serif;
 }
 
-header {
-
-  button {
-    width: 150px;
-  }
-    span {
-        padding-right: 1rem;
-
-        &.active {
-          font-weight: 700;
-        }
-    }
+button {
+  width: 150px;
+  margin-right: 1rem;
+  border: 2px solid darkgrey;
+  border-radius: 10px;
 }
+
 
 label {
     display: block;
@@ -35,4 +29,8 @@ button {
   color: darkslategrey;
   font-weight: 700;
   text-transform: uppercase;
+
+  .unni {
+    color: rgb(253, 36, 220)
+  }
 }

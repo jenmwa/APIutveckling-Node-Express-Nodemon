@@ -35,4 +35,79 @@ export function renderSignUp() {
   inputFormDiv.appendChild(userContainer);
   inputFormDiv.appendChild(userInlogBtn);
   inputFormDiv.appendChild(textDisclaimer);
+
+  function checkInput() {
+    const name = userNameInput.value;
+    const password = userPasswordInput.value;
+
+    if (name && password) {
+      userInlogBtn.disabled = false;
+    } else {
+      userInlogBtn.disabled = true;
+    }
+  }
+
+  userNameInput.addEventListener("input", checkInput);
+  userPasswordInput.addEventListener("input", checkInput);
+
+  function handleLogin() {
+    console.log("CLICK");
+
+    if (userInlogBtn.classList.contains("logged-out")) {
+      let newUser = {
+        userName: userNameInput.value,
+        userPassword: userPasswordInput.value,
+      };
+      console.log(newUser);
+
+      fetch("http://localhost:3000/users/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      })
+        .then((respons) => respons.json())
+        .then((data) => {
+          console.log(data);
+          toggleLoggedStatus(newUser);
+          //Göm headern?
+        });
+
+      userNameInput.value = "";
+      userPasswordInput.value = "";
+    } else {
+      toggleLoggedStatus(null);
+    }
+  }
+
+  function toggleLoggedStatus(newUser) {
+    if (userInlogBtn.classList.contains("logged-out")) {
+      userInlogBtn.classList.remove("logged-out");
+      userInlogBtn.classList.add("logged-in");
+      userInlogBtn.innerHTML = "LOGGA UT";
+      welcomeHeading.innerHTML = "";
+
+      const nameSpan = document.createElement("span");
+      nameSpan.textContent = newUser.userName;
+      nameSpan.classList.add("nameSpan");
+      welcomeHeading.appendChild(document.createTextNode("Welcome "));
+      welcomeHeading.appendChild(nameSpan);
+
+      welcomeHeading.appendChild(document.createTextNode("!"));
+      textMessage.innerHTML = "What do you want to do today?";
+      userContainer.innerHTML = "";
+      textDisclaimer.innerHTML = "";
+
+    } else {
+      userInlogBtn.setAttribute("class", "logged-out");
+      renderSignUp();
+    }
+
+    
+  }
+
+  //add to localstorage
+
+  userInlogBtn.addEventListener("click", handleLogin);
 }
