@@ -5,11 +5,33 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const blogRouter = require('./routes/blog')
+const blogRouter = require('./routes/blog');
 
 var app = express();
 
-const mongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017', {
+   useUnifiedTopology: true
+})
+.then (() => {
+  console.log('We´re connected to the database!');
+
+})
+.catch(err => console.log('err',err));
+
+// const MongoClient = require('mongodb').MongoClient;
+
+// MongoClient.connect('mongodb://localhost:27017', {
+//     useUnifiedTopology: true
+// })
+// .then(client => {
+//     console.log('We´re connected to the database!');
+
+//     const db = client.db('blogPosts');
+//     app.locals.db = db;
+// })
+// .catch(err => console.log('err',err));
 
 
 app.use(logger('dev'));
