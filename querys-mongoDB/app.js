@@ -11,11 +11,11 @@ var app = express();
 
 const MongoClient = require('mongodb').MongoClient;
 
-//mongodb+srv://jennywaller:testingTesting123@clustertest.sml8kdz.mongodb.net/?retryWrites=true&w=majority
+//mongodb+srv://jennywaller:<?>@clustertest.sml8kdz.mongodb.net/?retryWrites=true&w=majority
 //mongodb://127.0.0.1:27017
 //mongodb://localhost:27017
 
-MongoClient.connect('mongodb+srv://jennywaller:testingTesting123@clustertest.sml8kdz.mongodb.net/?retryWrites=true&w=majority', {
+MongoClient.connect('mongodb://localhost:27017', {
     useUnifiedTopology: true
 })
 .then(client => {
