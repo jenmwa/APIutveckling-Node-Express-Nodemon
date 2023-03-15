@@ -1,0 +1,23 @@
+GET http://localhost:3000/cars: 
+
+###
+
+GET http://localhost:3000/cars/show;
+
+###
+
+POST http://localhost:3000/cars:
+
+###
+
+POST http://localhost:3000/cars 
+content-type: application/json 
+
+{
+    "carVin":"KMHTC6AD9CU425606",
+    "carMake":"Lincoln",
+    "carModel":"MKX",
+    "modelYear":2011,
+    "color":"Red"
+}
+###

@@ -11,7 +11,11 @@ var app = express();
 
 const MongoClient = require('mongodb').MongoClient;
 
-MongoClient.connect('mongodb://localhost:27017', {
+//mongodb+srv://jennywaller:testingTesting123@clustertest.sml8kdz.mongodb.net/?retryWrites=true&w=majority
+//mongodb://127.0.0.1:27017
+//mongodb://localhost:27017
+
+MongoClient.connect('mongodb+srv://jennywaller:testingTesting123@clustertest.sml8kdz.mongodb.net/?retryWrites=true&w=majority', {
     useUnifiedTopology: true
 })
 .then(client => {
@@ -20,6 +24,7 @@ MongoClient.connect('mongodb://localhost:27017', {
     const db = client.db('usersBook');
     app.locals.db = db;
 })
+.catch(err => console.log('err',err));
 
 
 

@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-    req.app.locals.db.collection('cars').find().sort({'modelYear': 1}).toArray()
+    req.app.locals.db.collection('cars').find().sort({'modelYear': -1}).toArray()
 
     .then(results => {
         console.log(results);
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.post('/add', function(req, res) {
+router.post('/add', function(req, res, next) {
     req.app.locals.db.collection('cars').insertMany(req.body)
     .then(res => {
         res.redirect('/show');

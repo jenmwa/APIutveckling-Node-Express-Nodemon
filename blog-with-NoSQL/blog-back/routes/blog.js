@@ -19,7 +19,9 @@ router.delete('/:id', function( request, response, next){
 })
 
 router.post('/add', function(request, response, next){
-  
+  if(err) {
+    console.log(err)
+  }
 
 })
 

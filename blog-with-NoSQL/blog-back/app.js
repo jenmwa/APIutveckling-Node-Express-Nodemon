@@ -9,29 +9,29 @@ const blogRouter = require('./routes/blog');
 
 var app = express();
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017', {
-   useUnifiedTopology: true
-})
-.then (() => {
-  console.log('We´re connected to the database!');
-
-})
-.catch(err => console.log('err',err));
-
-// const MongoClient = require('mongodb').MongoClient;
-
-// MongoClient.connect('mongodb://localhost:27017', {
-//     useUnifiedTopology: true
+// mongoose.connect('mongodb://localhost:27017', {
+//    useUnifiedTopology: true
 // })
-// .then(client => {
-//     console.log('We´re connected to the database!');
+// .then (() => {
+//   console.log('We´re connected to the database!');
 
-//     const db = client.db('blogPosts');
-//     app.locals.db = db;
 // })
 // .catch(err => console.log('err',err));
+
+const MongoClient = require('mongodb').MongoClient;
+
+MongoClient.connect('mongodb://localhost:27017', {
+    useUnifiedTopology: true
+})
+.then(client => {
+    console.log('We´re connected to the database!');
+
+    const db = client.db('blogPosts');
+    app.locals.db = db;
+})
+.catch(err => console.log('err',err));
 
 
 app.use(logger('dev'));
