@@ -3,6 +3,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const carsRouter = require('./routes/cars')
@@ -11,11 +13,8 @@ var app = express();
 
 const MongoClient = require('mongodb').MongoClient;
 
-//mongodb+srv://jennywaller:<?>@clustertest.sml8kdz.mongodb.net/?retryWrites=true&w=majority
-//mongodb://127.0.0.1:27017
-//mongodb://localhost:27017
 
-MongoClient.connect('mongodb://localhost:27017', {
+MongoClient.connect(process.env.MONGODB_URI , {
     useUnifiedTopology: true
 })
 .then(client => {
