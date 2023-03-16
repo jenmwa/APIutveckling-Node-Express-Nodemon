@@ -29,3 +29,9 @@ BONUS;<br>
 <br><br>
 - lägg till en API nyckel som måste skickas med i anropen och som testas på servern innan nya inlägg sparas i databasen. <br>
 _(Dvs bara en inloggad användare kan skicka nya inlägg till databasen. Men alla får hämta och visa inlägg från databasen.)_
+<br><br><br>
+
+todo 220316:<br>
+//stajla lite html så inläggen syns<br>
+//postman<br>
+//få APIkey att funka (iteration IF apikey === true, show)<br>
