@@ -1,11 +1,5 @@
 console.log("Hey hey it´s connected!");
-import {printHeaderElement } from "./header.js";
+import {printWelcomeElement } from "./js/welcome.js"
 
-
-const inputFormDiv = document.querySelector("#userFormDiv");
-
-//CREATE welcomepage
-
-
-printHeaderElement()
+printWelcomeElement()
 

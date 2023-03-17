@@ -8,21 +8,32 @@ button {
   margin-right: 1rem;
   border: 2px solid darkgrey;
   border-radius: 10px;
-}
+  cursor: pointer;
+  padding: 0.5rem 1rem;
 
+  &.btnOk {
+    border: 2px solid darkslategray;
+  }
+
+}
 
 label {
     display: block;
     margin-bottom: 0.5rem;
 
     input {
-        margin-left: 0.5rem;
+      position: absolute;
+      margin-left: 0.5rem;
+      width: 300px;
+      left: 100px;
     }
 }
 
-button {
-    padding: 0.5rem 1rem;
-    
+
+
+.goToBtn {
+  width: 115px;
+  margin-left: 1rem;
 }
 
 .nameSpan {
@@ -30,7 +41,23 @@ button {
   font-weight: 700;
   text-transform: uppercase;
 
-  .unni {
+  &.unni {
     color: rgb(253, 36, 220)
+  }
+}
+
+.inloggedUserDiv {
+
+  input {
+    margin-left: 0.5rem;
+    width: 300px;
+    left: 0;
+  }
+  textarea {
+    resize: none;
+  }
+
+  button {
+    margin-top: 1rem;
   }
 }
