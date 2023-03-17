@@ -2,18 +2,30 @@ const  mongoose = require("mongoose");
 
 const BlogSchema = mongoose.Schema({
     title: {
-        type: String,  
+        type: String,
+        // required: true  
     },
     date: {
         type: String,
         default: Date.now()
     },
-    subHead: String,
-    text: String,
+    authors: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'authors', //user
+        // required: true
+    }],
+    subHead: { 
+        type: String,
+        required: true
+    },
+    text: {
+        type: String,
+    },
+    Comment: String,
     APIkey: {
         type: String,
-        unique: true,
-        required: true
+    //     unique: true,
+    //     required: true
     }
     
 });

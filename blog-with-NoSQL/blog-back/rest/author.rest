@@ -1,10 +1,32 @@
-
 GET http://localhost:3000/authors
+### 
+
+# POST http://localhost:3000/authors
+# Content-Type: application/json
+
+# {
+# "authors": "Tilda", 
+# "blogposts": ["64132720b0b9e7528ffc608f", "64132a3ed49b13faaf49c5c8"]
+# }
 ###
+
 POST http://localhost:3000/authors
 Content-Type: application/json
 
 {
-    "blogAuthor": "Johannes",
-    "blogpost": ["6412cad47cb4a5f5c216d311", "6412ebeb850db976f2669089"]
+    "authors": "Jenny",
+    "username": "jenmwa",
+    "emailadress": "dummyNew@mail.se"
 }
+
+###
+PUT http://localhost:3000/authors
+Content-Type: application/json
+
+{
+"_id": "6414528e68122311cddeab01",
+"authors": "Maria", 
+"blogposts": ["64132720b0b9e7528ffc608f", "64132a3ed49b13faaf49c5c8"]
+}
+
+###
