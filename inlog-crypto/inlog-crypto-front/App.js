@@ -24,7 +24,6 @@ export function printWelcomeElement() {
   headerElement.append(headerTextElement, subHeaderTextElement, divElement);
   divElement.append(signupBtn, loginBtn);
 
-  //eventlisteners HEADERS
   signupBtn.addEventListener("click", () => {
     console.log("signup");
     localStorage.setItem("renderState", "signup");
@@ -43,4 +42,4 @@ export function printWelcomeElement() {
   // } else if (renderState === "login") {
   //   renderLogInHtml();
   // }
-}
+};

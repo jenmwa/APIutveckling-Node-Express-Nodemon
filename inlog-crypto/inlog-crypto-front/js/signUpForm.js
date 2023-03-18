@@ -4,9 +4,6 @@ import { signUpOk } from "./signUpOk.js";
 export function renderSignUp() {
   console.log("HEY");
 
-  const btnDiv = document.getElementById("btnDiv");
-  btnDiv.innerHTML = "";
-
   const inputFormDiv = document.querySelector("#userFormDiv");
   inputFormDiv.innerHTML = "";
 

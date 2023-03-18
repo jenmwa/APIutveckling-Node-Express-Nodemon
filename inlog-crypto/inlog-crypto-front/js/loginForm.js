@@ -4,9 +4,6 @@ import { renderLoggedInDiv } from "./inloggedUser.js"
 export function renderLogInHtml() {
   console.log("YoYoYo");
 
-  let btnDiv = document.getElementById("btnDiv");
-  btnDiv.innerHTML = "";
-
   const inputFormDiv = document.querySelector("#userFormDiv");
   inputFormDiv.innerHTML = "";
 
