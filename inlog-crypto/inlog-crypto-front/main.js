@@ -1,5 +1,5 @@
 console.log("Hey hey it´s connected!");
-import {printWelcomeElement } from "./js/welcome.js"
+import { printWelcomeElement } from "./App.js";
 
-printWelcomeElement()
+printWelcomeElement();
 

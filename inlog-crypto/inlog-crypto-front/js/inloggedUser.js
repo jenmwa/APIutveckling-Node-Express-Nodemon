@@ -1,3 +1,4 @@
+import { printWelcomeElement } from "../App.js";
 
 export function renderLoggedInDiv(loginUser) {
     const inputFormDiv = document.querySelector("#userFormDiv");
@@ -25,7 +26,7 @@ export function renderLoggedInDiv(loginUser) {
             <input type="text" id="blogTitle">
         </label><br>
         <label>
-        subHead:</label>
+        short description</label>
         <textarea rows="5" cols="50" id="blogTextIngress">Bla bla blablabla
         </textarea>
         <label>
@@ -35,11 +36,17 @@ export function renderLoggedInDiv(loginUser) {
         <button>SAVE and publish</button>
         <button>Erase All</button>
         <br>
-        <button>LOG OUT</button>
+        <button id="logoutBtn">LOG OUT</button>
         
         `;
 
-        mainDiv.innerHTML = mainDivContent;
-
+    mainDiv.innerHTML = mainDivContent;
     inputFormDiv.appendChild(mainDiv);
+
+    const logoutBtn = document.querySelector('#logoutBtn');
+
+    logoutBtn.addEventListener('click', () => {
+        console.log('logoooout');
+        printWelcomeElement();
+      })
   }

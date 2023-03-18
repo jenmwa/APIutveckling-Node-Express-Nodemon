@@ -1,9 +1,14 @@
-import { renderSignUp } from "./signUpForm.js";
-import { renderLogInHtml } from "./loginForm.js";
+import { renderSignUp } from "./js/signUpForm.js";
+import { renderLogInHtml } from "./js/loginForm.js";
 
-let btnDiv = document.getElementById("btnDiv");
+// const btnDiv = document.createElement('div');
+// btnDiv.setAttribute('id', 'btnDiv');
+// let btnDiv = document.getElementById("btnDiv");
+const inputFormDiv = document.querySelector("#userFormDiv");
 
 export function printWelcomeElement() {
+  inputFormDiv.innerHTML = "";
+
   const headerElement = document.createElement("header");
   const headerTextElement = document.createElement("h1");
   headerTextElement.innerText = "Hello Stranger!";
@@ -15,7 +20,7 @@ export function printWelcomeElement() {
   const loginBtn = document.createElement("button");
   loginBtn.innerText = "LOG IN";
 
-  btnDiv.appendChild(headerElement);
+  inputFormDiv.appendChild(headerElement);
   headerElement.append(headerTextElement, subHeaderTextElement, divElement);
   divElement.append(signupBtn, loginBtn);
 
@@ -31,7 +36,7 @@ export function printWelcomeElement() {
     localStorage.setItem("renderState", "login");
     renderLogInHtml();
   });
-  
+
   // const renderState = localStorage.getItem("renderState");
   // if (renderState === "signup") {
   //   renderSignUp();
