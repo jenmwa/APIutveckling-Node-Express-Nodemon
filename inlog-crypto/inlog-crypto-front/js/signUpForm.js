@@ -1,4 +1,5 @@
 import { renderLogInHtml } from "./loginForm.js";
+import { signUpOk } from "./signUpOk.js";
 
 export function renderSignUp() {
   console.log("HEY");
@@ -74,7 +75,7 @@ export function renderSignUp() {
   function handleLogin() {
     console.log("CLICK");
 
-    if (userInlogBtn.classList.contains("logged-out")) {
+    // if (userInlogBtn.classList.contains("logged-out")) {
       let newUser = {
         userName: userNameInput.value,
         userPassword: userPasswordInput.value,
@@ -93,42 +94,42 @@ export function renderSignUp() {
         .then((respons) => respons.json())
         .then((data) => {
           console.log(data);
-          toggleLoggedStatus(newUser);
-          
+          // toggleLoggedStatus(newUser);
+          signUpOk(newUser);
         });
 
       userNameInput.value = "";
       userPasswordInput.value = "";
-    } else {
-      toggleLoggedStatus(null);
-    }
-  }
-
-  function toggleLoggedStatus(newUser) {
-    if (userInlogBtn.classList.contains("logged-out")) {
-      userInlogBtn.classList.remove("logged-out");
-      userInlogBtn.classList.add("logged-in");
-      userInlogBtn.innerHTML = "LOGGA UT";
-      welcomeHeading.innerHTML = "";
-
-      const nameSpan = document.createElement("span");
-      nameSpan.textContent = newUser.userName;
-      nameSpan.classList.add("nameSpan");
-      welcomeHeading.appendChild(document.createTextNode("Welcome "));
-      welcomeHeading.appendChild(nameSpan);
-
-      welcomeHeading.appendChild(document.createTextNode("!"));
-      textMessage.innerHTML = "What do you want to do today?";
-      userContainer.innerHTML = "";
-      textDisclaimer.innerHTML = "";
-
-    } else {
-      userInlogBtn.setAttribute("class", "logged-out");
-      renderSignUp();
-    }
-
+      userEmailInput.value = "";
+    // } else {
     
+      // toggleLoggedStatus(null);
+    // }
   }
+
+  // function toggleLoggedStatus(newUser) {
+  //   if (userInlogBtn.classList.contains("logged-out")) {
+  //     userInlogBtn.classList.remove("logged-out");
+  //     userInlogBtn.classList.add("logged-in");
+  //     userInlogBtn.innerHTML = "LOGGA UT";
+  //     welcomeHeading.innerHTML = "";
+
+  //     const nameSpan = document.createElement("span");
+  //     nameSpan.textContent = newUser.userName;
+  //     nameSpan.classList.add("nameSpan");
+  //     welcomeHeading.appendChild(document.createTextNode("Welcome "));
+  //     welcomeHeading.appendChild(nameSpan);
+
+  //     welcomeHeading.appendChild(document.createTextNode("!"));
+  //     textMessage.innerHTML = "What do you want to do today?";
+  //     userContainer.innerHTML = "";
+  //     textDisclaimer.innerHTML = "";
+
+  //   } else {
+  //     userInlogBtn.setAttribute("class", "logged-out");
+  //     renderSignUp();
+  //   }
+  // }
 
   //add to localstorage
   userInlogBtn.addEventListener("click", handleLogin);

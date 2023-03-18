@@ -3,14 +3,13 @@ export function renderLoggedInDiv(loginUser) {
     const inputFormDiv = document.querySelector("#userFormDiv");
     inputFormDiv.innerHTML = "";
 
-    const userGreeting = document.createElement("h4");
+    const userGreeting = document.createElement("h2");
     const nameSpan = document.createElement("span");
     nameSpan.textContent = loginUser.userName;
     nameSpan.classList.add("nameSpan"); 
   
     inputFormDiv.appendChild(userGreeting);
 
-    
     userGreeting.appendChild(document.createTextNode("Welcome "));
     userGreeting.appendChild(nameSpan);
     userGreeting.appendChild(document.createTextNode("!"));
@@ -25,6 +24,10 @@ export function renderLoggedInDiv(loginUser) {
             title:<br>
             <input type="text" id="blogTitle">
         </label><br>
+        <label>
+        subHead:</label>
+        <textarea rows="5" cols="50" id="blogTextIngress">Bla bla blablabla
+        </textarea>
         <label>
         text:</label>
         <textarea rows="20" cols="50" id="blogText">Bla bla blablabla bla Bla bla blablabla bla
