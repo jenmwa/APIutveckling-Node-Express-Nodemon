@@ -10,23 +10,5 @@
     "userEmail": "jen",
     "id": 2,
     "userPassword": "d31e249bc9cf81f42a3d2e9ea57fcad4cc3a94db33aebf75ecef0e444d1fe01c79fc478b2633bc7770ae8e1a069c802dd5c6ee910f1111fa58d6c94b849235c9"
-  },
-  {
-    "userName": "jenny",
-    "userEmail": "jenny",
-    "id": 3,
-    "userPassword": "7ca77ec938e840729cd5db8bf8987b0832be5c96337f95c120465d389e422bd3dfb298c339ced43e84b8edfcd88ead715b2eac124f403e3d6a8406545d0d7ebe"
-  },
-  {
-    "userName": "jw",
-    "userEmail": "jw",
-    "id": 4,
-    "userPassword": "3bb8a1c03e4db5175d89b4f3e2bb48da71cd90d7e9157081cc4df26e2f25d08c90ebf2bf1085c91f79328a7bd6e44bfbbdca98fa029e936a87d84f6415c06e55"
-  },
-  {
-    "userName": "jem",
-    "userEmail": "jem",
-    "id": 5,
-    "userPassword": "f9c63fee207958edccb93d4e3fd47c5416a86a291c7937dc5135093bdab172509b8599547bd5c2c4b008119e02e8b40a123b7f200cbd5213684fca813bfd46ae"
   }
 ]
