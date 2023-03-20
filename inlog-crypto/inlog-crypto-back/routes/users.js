@@ -22,47 +22,64 @@ router.get('/', function(req, res, next) {
 
 /* READ user list jsonFile. */
 router.get('/add', function(request, response, next) {
-  fs.readFile('users.json', function(error, data) {
-    if(error){
-      console.log(error)
-    }
-    const userList = JSON.parse(data);
-    response.send(userList);
-  })
+  request.app.locals.db.collection('users').find().toArray()
+    .then(result => {
+      console.log('result from GET users/add', result);
+      response.json(result);
+    })
+
+  // fs.readFile('users.json', function(error, data) {
+  //   if(error){
+  //     console.log(error)
+  //   }
+  //   const userList = JSON.parse(data);
+  //   response.send(userList);
+  // })
 });
 
 //add new user
 router.post('/add', function(request, response, next) {
+  let newUser = {
+    'userName': request.body.userName,
+    'userEmail': request.body.userEmail,
+    // 'userPassword': request.body.userPassword,
+  };
+  let userPasswordCrypto = crypto.SHA3(request.body.userPassword).toString();
+  // let userPasswordCrypto = crypto.AES.encrypt(request.body.userPassword, salt).toString();
+  newUser.userPassword = userPasswordCrypto;
 
+  console.log('new user', newUser)
 
-  fs.readFile('users.json', function(error, data) {
-    if(error) {
-      console.log(error)
-    }
-    let newUser = {
-      'userName': request.body.userName,
-      'userEmail': request.body.userEmail,
-      // 'userPassword': request.body.userPassword,
-    };
-    const userList = JSON.parse(data);
-    newUser.id = userList.length + 1;
-
-    let userPasswordCrypto = crypto.SHA3(request.body.userPassword).toString();
-    // let userPasswordCrypto = crypto.AES.encrypt(request.body.userPassword, salt).toString();
-    newUser.userPassword = userPasswordCrypto;
-
-
-    userList.push(newUser);
-
-    fs.writeFile('users.json', JSON.stringify(userList, null, 2), function(error) {
-      if(error) {
-        console.log('Something went wrong!')
-      }
+  request.app.locals.db.collection('users').insertOne(newUser)
+    .then(result => {
+      console.log('result from db', result);
+      response.json(result);
     })
-    response.send(userList);
-    return;
 
-  })
+// ADD IN CASE OF ERRORMSG 
+
+  // fs.readFile('users.json', function(error, data) {
+  //   if(error) {
+  //     console.log(error)
+  //   }
+  
+  //   const userList = JSON.parse(data);
+  //   // newUser.id = userList.length + 1;
+
+   
+
+
+  //   userList.push(newUser);
+
+  //   fs.writeFile('users.json', JSON.stringify(userList, null, 2), function(error) {
+  //     if(error) {
+  //       console.log('Something went wrong!')
+  //     }
+  //   })
+  //   response.send(userList);
+  //   return;
+
+  // })
 })
 
 

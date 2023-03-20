@@ -17,7 +17,7 @@ app.use(cors());
 MongoClient.connect('mongodb://localhost:27017')
   .then(client => {
     console.log('we´re connected to the database');
-    const db = client.db('users');
+    const db = client.db('projectInlogCrypto');
     app.locals.db = db;
   })
   .catch(err => console.log('err', err))

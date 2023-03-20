@@ -10,5 +10,11 @@
     "userEmail": "jen",
     "id": 2,
     "userPassword": "d31e249bc9cf81f42a3d2e9ea57fcad4cc3a94db33aebf75ecef0e444d1fe01c79fc478b2633bc7770ae8e1a069c802dd5c6ee910f1111fa58d6c94b849235c9"
+  },
+  {
+    "userName": "jenmwa",
+    "userEmail": "jenmwa",
+    "userPassword": "5c18d02edc21e353c0a7e83d59b45d18d795daa51bb592fc3739f2a304fa4c80ce3521e373cbabf8ecbaaf636ac0dfcf4f197079e984d9b0cd34cc53d416874f",
+    "id": 3
   }
 ]
