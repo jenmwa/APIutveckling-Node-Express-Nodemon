@@ -1,0 +1,11 @@
+$primaryFont: 'Krub', sans-serif;
+$secondaryFont: 'Marcellus', serif;
+
+body {
+    background-color: whitesmoke;
+    font-family: $primaryFont;
+}
+
+li {
+    cursor: pointer;
+}
