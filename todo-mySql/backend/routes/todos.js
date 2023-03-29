@@ -65,4 +65,25 @@ router.post('/done', function(req,res,next) {
   })
 })
 
+router.get('/:listId', function(req, res, next) {
+
+  let listId = req.params.listId;
+
+  connection.connect((err) => {
+    if(err) {
+      console.log(err)
+    }
+
+    connection.query("SELECT * FROM todos WHERE todoDone = 0 AND listId = " + listId , (err, data) => {
+      if(err) {
+        console.log(err)
+      }
+
+      console.log('data från query', data)
+      res.json(data)
+
+    })
+  })
+});
+
 module.exports = router;

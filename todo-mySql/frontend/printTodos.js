@@ -1,10 +1,20 @@
-import { todoDone } from "./todoDone.js";
+import todoDone from "./todoDone.js";
+import { listDrop } from "./printLists.js";
 
-let app = document.querySelector('#app')
+let app = document.querySelector('#app');
 
-export default function printTodos() {
+listDrop.addEventListener('change', (e) => {
+  console.log('ändra lista', e.target.value);
+  printTodos(e.target.value);
+})
 
-  fetch("http://localhost:3000/todos")
+export default function printTodos(list) {
+
+  if(!list) {
+    list = 1;
+  }
+
+  fetch("http://localhost:3000/todos/"+ list )
     .then((res) => res.json())
     .then((data) => {
       console.log("todos", data);
@@ -13,11 +23,11 @@ export default function printTodos() {
 
       data.map(todo => {
         const li = document.createElement('li');
-        li.innerText = todo.todoName;
+        li.innerText = todo.todoName + " (" + todo.listId + ")";
         li.id = todo.todoId;
 
         li.addEventListener('click', () => {
-          todoDone(li.id);
+          todoDone(li.id, listDrop.value);
         })
 
         ul.appendChild(li);
