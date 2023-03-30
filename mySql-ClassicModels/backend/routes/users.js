@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 // const app= require('../app');
 // const mysql = require('mysql2');
 
@@ -26,35 +26,27 @@ var router = express.Router();
 //     })
 // })
 
-
 //   res.send('respond with a resource');
 // });
 //hämta från users
-router.get('/', function(req, res, next) {
-
-  req.app.locals.con.connect(
-    function(err) {
-    if(err){
+router.get("/", function (req, res, next) {
+  req.app.locals.con.connect(function (err) {
+    if (err) {
       console.log(err);
     }
 
-    let saveName = "Jenny";
-    let saveEmail = "jenny@mail.com";
 
     // let sql = `SELECT * FROM users`
-    let sql = `SELECT userName, userEmail FROM users`
+    let sql = `SELECT * from users`;
 
-    req.app.locals.con.query(sql, function(err, result) {
-      if(err) {
+    req.app.locals.con.query(sql, function (err, result) {
+      if (err) {
         console.log(err);
       }
-      console.log('result', result);
+      console.log("result", result);
       res.send(result);
-    })
-})
-
-
-
+    });
+  });
 });
 
 module.exports = router;
