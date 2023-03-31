@@ -10,27 +10,77 @@ export default function renderContactSection() {
   headerMain.innerText = "Contact";
   app.appendChild(headerMain);
 
+  const officeDiv = document.createElement("div");
+
   fetch("http://localhost:3000/offices")
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       console.log(data);
 
-      const officeDiv = document.createElement('div');
-      data.map(item => {
-        const officeHeader = document.createElement('h4');
-        const officeAdress = document.createElement('p');
-        const officePhone = document.createElement('p');
+      data.map((item) => {
+        const officeCityDiv = document.createElement("div");
+        officeCityDiv.setAttribute("id", "officeCityDiv");
+        const officeHeader = document.createElement("h4");
+        const officeAdress = document.createElement("p");
+        const officePhone = document.createElement("p");
 
         officeHeader.innerText = item.city;
-        officeAdress.innerText = item.addressLine1 + (item.addressLine2 ? ", " + item.addressLine2 : "") + ", " + item.city + (item.state ? ", " + item.state : "") + ', ' + item.country;
+        officeAdress.innerText =
+          item.addressLine1 +
+          (item.addressLine2 ? ", " + item.addressLine2 : "") +
+          ", " +
+          item.city +
+          (item.state ? ", " + item.state : "") +
+          ", " +
+          item.country;
+
+        officePhone.innerText = "phone: " + item.phone;
+
+        officeCityDiv.append(officeHeader, officeAdress, officePhone);
+        officeDiv.appendChild(officeCityDiv);
+
+        let employeesDisplayed = false;
+
+        officeCityDiv.addEventListener("click", () => {
+          console.log(item.officeCode);
+          if (!employeesDisplayed) {
+            renderEmployeesPerOffice(item.officeCode, officeCityDiv);
+            employeesDisplayed = true;
+          }
+        });
         
-        officePhone.innerText = 'phone: ' + item.phone;
+        app.appendChild(officeDiv);
+      });
+    });
 
-        officeDiv.append(officeHeader, officeAdress, officePhone);
-    
-   
+  function renderEmployeesPerOffice(officeCode, officeCityDiv) {
+    const employeesDiv = document.createElement("div");
+    const title = document.createElement("h5");
+    title.innerText = "Employees:";
+    employeesDiv.appendChild(title);
+
+
+    fetch('http://localhost:3000/employees/' + officeCode)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+
+        data.map((employee) => {
+
+          const employees = document.createElement('p');
+  
+          employees.innerText =
+          employee.firstName + ' ' + employee.lastName + ', ' + employee.jobTitle + ', ' + employee.email;
+  
+  
+
+          employeesDiv.appendChild( employees);
+        }) 
+        officeCityDiv.appendChild(employeesDiv);  
+        // const officeCityDiv = document.querySelector("#officeCityDiv");
+        // officeCityDiv.appendChild(employeesDiv);
+
       })
-    app.appendChild(officeDiv)
-
-    })
+  }
 }
