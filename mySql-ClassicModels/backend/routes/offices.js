@@ -13,6 +13,7 @@ router.get("/", function (req, res, next) {
       if (err) {
         console.log("err", err);
       }
+      
       res.send(result);
     });
   });
