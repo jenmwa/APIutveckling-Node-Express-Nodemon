@@ -48,7 +48,7 @@ export default function renderContactSection() {
             employeesDisplayed = true;
           }
         });
-        
+
         app.appendChild(officeDiv);
       });
     });
@@ -59,28 +59,26 @@ export default function renderContactSection() {
     title.innerText = "Employees:";
     employeesDiv.appendChild(title);
 
-
-    fetch('http://localhost:3000/employees/' + officeCode)
-      .then(res => res.json())
-      .then(data => {
+    fetch("http://localhost:3000/employees/" + officeCode)
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
 
-
         data.map((employee) => {
+          const employees = document.createElement("p");
 
-          const employees = document.createElement('p');
-  
           employees.innerText =
-          employee.firstName + ' ' + employee.lastName + ', ' + employee.jobTitle + ', ' + employee.email;
-  
-  
+            employee.firstName +
+            " " +
+            employee.lastName +
+            ", " +
+            employee.jobTitle +
+            ", " +
+            employee.email;
 
-          employeesDiv.appendChild( employees);
-        }) 
-        officeCityDiv.appendChild(employeesDiv);  
-        // const officeCityDiv = document.querySelector("#officeCityDiv");
-        // officeCityDiv.appendChild(employeesDiv);
-
-      })
+          employeesDiv.appendChild(employees);
+        });
+        officeCityDiv.appendChild(employeesDiv);
+      });
   }
 }
